@@ -1,32 +1,50 @@
 <div class="container">
+    <!-- Player form to add a new player -->
     <form [formGroup]="playerForm" (ngSubmit)="addPlayer()" class="form">
         <input type="text" formControlName="name" placeholder="Enter player name" />
         <button type="submit" [disabled]="playerForm.invalid">Add Player</button>
     </form>
 
+    <!-- Table and loader are shown only when players exist -->
     <div *ngIf="players.length > 0" class="table-wrapper">
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Score</th>
-                    <th>Rank</th>
-                    <th>Update Score</th> <!-- New column -->
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let player of players; let i = index">
-                    <td>{{ player.name }}</td>
-                    <td>{{ player.score }}</td>
-                    <td>{{ player.rank }}</td>
-                    <td class="update-cell">
-                        <input type="number" [(ngModel)]="scoreInputs[i]" placeholder="{{player.score}}" min="0"
-                            class="score-input" />
-                        <button class="update-button" (click)="updateScore(i)">Update</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <button class="delete-button" (click)="deleteAll()">Delete All Players</button>
+
+        <!-- Nested wrapper to allow overlaying the loader on the table -->
+        <div class="table-wrapper">
+
+            <!-- Loader overlay shown while loading (e.g., fetching data or updating scores) -->
+            <div class="loader-overlay" *ngIf="isLoading">
+                <div class="loader"></div>
+            </div>
+
+            <!-- Players data table -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Rank</th>
+                        <th>Update Score</th> <!-- Column for updating score -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loop through each player and render their row -->
+                    <tr *ngFor="let player of players; let i = index">
+                        <td>{{ player.name }}</td>
+                        <td>{{ player.score }}</td>
+                        <td>{{ player.rank }}</td>
+                        <td class="update-cell">
+                            <!-- Input for new score bound by ngModel, defaulting to 0 -->
+                            <input type="number" [(ngModel)]="scoreInputs[i]" placeholder="0" min="0"
+                                class="score-input" />
+                            <!-- Button to trigger score update for the current player -->
+                            <button class="update-button" (click)="updateScore(i)">Update</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Button to delete all players from the tournament -->
+            <button class="delete-button" (click)="deleteAll()">Delete All Players</button>
+        </div>
     </div>
 </div>
