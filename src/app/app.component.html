@@ -1,12 +1,25 @@
+<!-- Main application layout -->
 <main class="main">
+  
+  <!-- Application header -->
   <div class="header">
     <h1>Poker Tournament Administration</h1>
   </div>
+
+  <!-- Player management component -->
   <app-player></app-player>
+
+  <!-- Footer with legal notice -->
   <footer class="footer">
     <p>&copy; 2025 Luziware Enterprise. All rights reserved.</p>
-    <p class="legal">This is a fictional app for demonstration purposes only. No real data is collected or stored.</p>
+    <p class="legal">
+      This is a fictional app for demonstration purposes only. No real data is collected or stored.
+    </p>
   </footer>
 </main>
 
-<router-outlet />
+<!-- Angular router outlet for dynamic views -->
+<router-outlet></router-outlet>
+
+<!-- Toast notifications (floating messages) -->
+<app-toast></app-toast>
