@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global layout reset */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #f2f6fc, #e3eaf2); /* Light gradient background */
+  color: #333;
+}
+
+/* Main layout wrapper */
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* Center and constrain all child content */
+.main > .header,
+.main > .footer {
+  max-width: none;
+  width: 100%;
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}

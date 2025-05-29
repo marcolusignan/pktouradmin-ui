@@ -1,0 +1,32 @@
+<div class="container">
+    <form [formGroup]="playerForm" (ngSubmit)="addPlayer()" class="form">
+        <input type="text" formControlName="name" placeholder="Enter player name" />
+        <button type="submit" [disabled]="playerForm.invalid">Add Player</button>
+    </form>
+
+    <div *ngIf="players.length > 0" class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Score</th>
+                    <th>Rank</th>
+                    <th>Update Score</th> <!-- New column -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let player of players; let i = index">
+                    <td>{{ player.name }}</td>
+                    <td>{{ player.score }}</td>
+                    <td>{{ player.rank }}</td>
+                    <td class="update-cell">
+                        <input type="number" [(ngModel)]="scoreInputs[i]" placeholder="{{player.score}}" min="0"
+                            class="score-input" />
+                        <button class="update-button" (click)="updateScore(i)">Update</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="delete-button" (click)="deleteAll()">Delete All Players</button>
+    </div>
+</div>
